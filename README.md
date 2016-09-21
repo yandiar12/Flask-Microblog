@@ -1,6 +1,6 @@
 FLASK-MICROBLOG
 ---------------
-Flask-Microblog is my simple project. Made with Python 3.5, Flask 0.11.1 and MongoDB 3.2.
+Flask-Microblog is my simple project. Built with Python 3.5, Flask 0.11.1 and MongoDB 3.2.
 
 I connect the Flask to MongoDB using the Flask-Pymongo 0.4.1.
 
