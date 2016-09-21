@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<!-- SITE TITLE -->
+	<title>{% block title %}{% endblock %}</title>
+
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" href="/static/css/bootstrap.css">
+	<link rel="stylesheet" href="/static/css/microblog.css">
+</head>
+<body>
+	<!-- SITE NAVBAR -->
+	<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Microblog</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<!-- <li><a href="/create">Create Post</a></li> -->
+			</ul>
+			<ul class="nav navbar-nav pull-right">
+				<!-- <li><a href="#">Profile</a></li> -->
+				<li><a href="/logout">SIGN OUT</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- SITE CONTENT -->
+	<div class="container">
+		{% block body %}{% endblock %}	
+	</div>
+
+	<!-- FOOTER -->
+    <footer class="text-center">
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Microblog 2016
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+	<!-- JAVASCRIPT -->
+	<script type="text/javascript" src="/static/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var img = $('#img-post').val();
+			if (img==''){
+				$('#img-post').hide();
+				$('#cancel-img').hide();
+			} else {
+				$('#img-post').show();
+				$('#cancel-img').show();
+			}
+		});
+		function readURL(input) {
+	        if (input.files && input.files[0]) {
+	        	$('#img-post').show();
+	        	$('#cancel-img').show();
+	            var reader = new FileReader();
+	            
+	            reader.onload = function (e) {
+	                $('#img-preview').attr('src', e.target.result);
+	            }
+	            
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+	    
+	    $("#imgInp").change(function(){
+	        readURL(this);
+	    });
+
+	    $("#remove-img").click(function(){
+		    $('#img-post').hide();
+		    $('imgInp').val('');
+		});
+	</script>
+</body>
+</html>

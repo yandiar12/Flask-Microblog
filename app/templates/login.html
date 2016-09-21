@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+	Login Page
+{% endblock %}
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div>
+				<legend class="header-form"><h2><strong>SIGN IN</strong></h2></legend>
+				{% if error %}
+				<p><strong>Error:</strong> {{ error }}
+				{% endif %}
+			</div>
+			<form method="POST" action="{{ url_for('login') }}">
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" name="pass" id="pass" placeholder="Password" required>
+				</div>
+				<button type="submit" class="btn btn-primary btn-block">Login</button>
+			</form>
+			<br/>
+			<div>
+				Don't have an account? <a href="{{ url_for('register') }}">Sign up here.</a>
+			</div>
+		</div>
+	</div>	
+</div>
+
+{% endblock %}

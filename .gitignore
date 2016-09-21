@@ -1,0 +1,5 @@
+# Virtualenv
+*.pyc
+*.pyo
+env
+*.mo

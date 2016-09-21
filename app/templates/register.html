@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+	Register Page
+{% endblock %}
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div>
+				<legend><h2 class="header-form"><strong>Register</strong></h2></legend>
+				{% if error %}
+				<p><strong>Error:</strong> {{ error }}
+				{% endif %}
+			</div>
+			<form method="POST" action="{{ url_for('register') }}">
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" name="pass" id="pass" placeholder="Password" required>
+				</div>
+				<button type="submit" class="btn btn-primary btn-block">Register</button>
+				<br/>
+				<div>
+					have an account? <a href="{{ url_for('login') }}">Sign in here.</a>
+				</div>
+			</form>
+		</div>
+	</div>	
+</div>
+
+{% endblock %}

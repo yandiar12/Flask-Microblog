@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}
+	Edit Post
+{% endblock %}
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			{% for p in posts %}
+				<div class="box-content-detail">
+				{% include 'flash.html' %}
+					<div class="header-content">
+						<h5><strong>{{ p.author }}</strong></h5>
+						<small style="color: #7f8c8d;">{{ p.timestamp }}</small>
+					</div>
+					<div class="body-content">
+						<form method="POST" action="{{ url_for('update', id=p._id) }}">
+							<input type="text" name="id" value="{{ p._id }}" hidden>
+							<div class="form-group">
+								<textarea class="form-control" name="post" placeholder="Say something:" required>{{ p.body }}</textarea>
+							</div>	
+							<div class="footer-content">
+								<button type="submit" class="btn btn-primary">Edit <i class="glyphicon glyphicon-pencil"></i></button>
+								<a href="{{url_for('delete', id = p._id)}}" class="btn btn-danger pull-right" id="btnDelete">Delete <i class="glyphicon glyphicon-trash"></i></a>
+							</div>
+						</form>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="modal_delete" role="dialog">
+    <div class="modal-dialog modal-medium">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Warning !!</h3>
+            </div>
+            <div id="dlt-msg" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnYes" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                <button type="button" id="btnNo" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% endblock %}

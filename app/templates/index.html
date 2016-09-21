@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}
+	Homepage Microblog
+{% endblock %}
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="box-user">
+				<img class="user-profile-img img-responsive" src="{{ url_for('uploaded_image_profile', filename=session['avatar']) }}" alt="profile-picture" width="200" height="200">
+				<div class="text-center"><legend><a class="link-profile" href="{{ url_for('user') }}"><h3><strong>{{ session['username'] }}</strong></h3></a></legend></div>
+				<div class="text-center aboutme"><strong>{{ session['aboutme'] }}</strong></div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="box-post">
+				{% include 'flash.html' %}
+				<form method="POST" action="{{ url_for('index') }}" enctype="multipart/form-data">
+					<div class="form-group">
+						<textarea class="form-control" name="post" placeholder="Say something:" required></textarea>
+					</div>
+					<div class="form-group box-img-preview" id="img-post">
+						<img class="img-preview img-responsive" id="img-preview" src="#" width="200" height="200"/>
+						<span id="remove-img" class="remove-img btn btn-default glyphicon glyphicon-remove"></span>
+					</div>
+					<div class="form-group">
+						<span class="btn btn-primary btn-file glyphicon glyphicon-camera pull-right">
+							<input type="file" name="imgInp" id="imgInp" />
+						</span>
+						<button type="submit" class="btn btn-primary">Post <i class="glyphicon glyphicon-send"></i></button>
+					</div>
+				</form>
+				{% for p in posts %}
+				<div class="box-content">
+					<a class="link-content" href="{{ url_for('edit', id=p._id) }}">
+						<div class="header-content">
+							<h5><strong>{{ p.author }}</strong></h5>
+						</div>
+						<div class="body-content">
+							<h5><p>{{ p.body }}</p></h5>
+							{% if p.image %}
+							<img class="img-responsive" src="{{ url_for('uploaded_image_post', filename=p.image) }}">
+							{% endif %}
+						</div>
+						<div class="footer-content">
+							<small>{{ p.timestamp }}</small>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="text-center">
+				<ul class="pagination">
+					{% if pagination.has_prev %}
+						<li><a href="{{ url_for_other_page(pagination.page - 1) }}">&laquo; Prev</a></li>
+					{% endif %}
+					{%- for page in pagination.iter_pages() %}
+						{% if page %}
+							{% if page != pagination.page %}
+								<li><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
+							{% else %}
+								<li><a href="#"><strong>{{ page }}</strong></a></li>
+							{% endif %}
+						{% else %}
+						  <span class=ellipsis>…</span>
+						{% endif %}
+					{%- endfor %}
+					{% if pagination.has_next %}
+						<li><a href="{{ url_for_other_page(pagination.page + 1) }}">Next &raquo;</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
